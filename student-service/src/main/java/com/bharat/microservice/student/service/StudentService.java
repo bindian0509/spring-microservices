@@ -17,9 +17,9 @@ import reactor.core.publisher.Mono;
 public class StudentService {
 
     @Autowired
-    StudentRepository studentRepository;
+    private StudentRepository studentRepository;
     @Autowired
-    AddressFeignClient addressFeignClient;
+    private AddressFeignClient addressFeignClient;
 
     public StudentResponse createStudent(CreateStudentRequest createStudentRequest) {
 

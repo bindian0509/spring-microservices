@@ -1,12 +1,12 @@
-package com.bharat.microservice.addresss.controller;
+package com.bharat.microservice.address.controller;
 /*
  * @author bharat.verma
  * @created Thursday, 07 July 2022
  */
 
-import com.bharat.microservice.addresss.model.dto.AddressResponse;
-import com.bharat.microservice.addresss.model.dto.CreateAddressRequest;
-import com.bharat.microservice.addresss.service.AddressService;
+import com.bharat.microservice.address.model.dto.AddressResponse;
+import com.bharat.microservice.address.model.dto.CreateAddressRequest;
+import com.bharat.microservice.address.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

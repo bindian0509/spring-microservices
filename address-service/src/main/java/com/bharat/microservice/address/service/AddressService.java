@@ -1,14 +1,14 @@
-package com.bharat.microservice.addresss.service;
+package com.bharat.microservice.address.service;
 /*
  * @author bharat.verma
  * @created Thursday, 07 July 2022
  */
 
 
-import com.bharat.microservice.addresss.model.dto.AddressResponse;
-import com.bharat.microservice.addresss.model.dto.CreateAddressRequest;
-import com.bharat.microservice.addresss.model.entity.Address;
-import com.bharat.microservice.addresss.model.repository.AddressRepository;
+import com.bharat.microservice.address.model.dto.AddressResponse;
+import com.bharat.microservice.address.model.dto.CreateAddressRequest;
+import com.bharat.microservice.address.model.entity.Address;
+import com.bharat.microservice.address.repository.AddressRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.bharat.microservice.addresss.model.entity;
+package com.bharat.microservice.address.model.entity;
 /*
  * @author bharat.verma
  * @created Thursday, 07 July 2022

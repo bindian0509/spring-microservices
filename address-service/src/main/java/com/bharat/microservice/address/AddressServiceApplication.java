@@ -1,14 +1,15 @@
-package com.bharat.microservice.addresss;
+package com.bharat.microservice.address;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@SpringBootApplication
+@SpringBootApplication()
 @EntityScan("com.bharat.microservice.address.model.entity")
-@EnableJpaRepositories("com.bharat.microservice.addresss.model.repository")
+@EnableJpaRepositories("com.bharat.microservice.address.repository")
 public class AddressServiceApplication {
 
     public static void main(String[] args) {

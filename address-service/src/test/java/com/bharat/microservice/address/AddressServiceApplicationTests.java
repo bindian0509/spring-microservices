@@ -1,4 +1,4 @@
-package com.bharat.microservice.addresss;
+package com.bharat.microservice.address;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

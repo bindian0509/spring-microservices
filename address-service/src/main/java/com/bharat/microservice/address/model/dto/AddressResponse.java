@@ -1,11 +1,11 @@
-package com.bharat.microservice.addresss.model.dto;
+package com.bharat.microservice.address.model.dto;
 /*
  * @author bharat.verma
  * @created Thursday, 07 July 2022
  */
 
 
-import com.bharat.microservice.addresss.model.entity.Address;
+import com.bharat.microservice.address.model.entity.Address;
 
 public class AddressResponse {
 

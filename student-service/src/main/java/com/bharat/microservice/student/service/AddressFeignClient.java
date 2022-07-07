@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  * @author bharat.verma
  * @created Thursday, 07 July 2022
  */
-@FeignClient(url = "${address.service.url}", value = "address-feign-client",
+@FeignClient(value = "address-service",
         path = "/api/address")
 public interface AddressFeignClient {
 

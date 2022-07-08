@@ -13,7 +13,7 @@ For further reference, please consider the following sections:
 ## Getting Started 
 
 
-1. Setup and run mysql on local machine, then dump the data given in `database_file` directory like 
+1. Setup and [run mysql on local machine](https://www.prisma.io/dataguide/mysql/setting-up-a-local-mysql-database), then dump the data given in `database_file` directory like 
 
 ```
 mysql -u root < university.db.sql 
@@ -21,16 +21,19 @@ mysql -u root < university.db.sql
 2. Change database connection credentials everywhere in `application.properties`
 
 ```
+spring.datasource.url=jdbc:mysql://localhost:3306/university
 spring.datasource.username=root
 spring.datasource.password=root_pass
 ```
-3. Each microservices can be build and run by following command from the respective directory 
+3. Each microservices can be build and run by following [maven](https://maven.apache.org/) command from the respective directory 
 
 ```
 mvn spring-boot:run
 ```
+4. For all local request and testing you can use following postman collection via import option in [Postman](https://www.postman.com/downloads/) - 
+> [Postman localhost API endpoint collection](https://www.getpostman.com/collections/e9ec883b436965c3de45)
 
-4. Spring version used here is - 
+5. Spring version used here is - 
 
 ```
   .   ____          _            __ _ _

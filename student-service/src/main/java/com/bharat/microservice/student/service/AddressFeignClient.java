@@ -9,11 +9,10 @@ import org.springframework.web.bind.annotation.PathVariable;
  * @author bharat.verma
  * @created Thursday, 07 July 2022
  */
-@FeignClient(value = "address-service",
-        path = "/api/address")
+@FeignClient(value = "api-gateway")
 public interface AddressFeignClient {
 
-    @GetMapping("/{id}")
+    @GetMapping("/address-service/api/address/{id}")
     public AddressResponse getById(@PathVariable long id);
 
 }

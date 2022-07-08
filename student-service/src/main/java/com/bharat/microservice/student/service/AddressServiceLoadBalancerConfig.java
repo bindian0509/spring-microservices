@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Bean;
  * @author bharat.verma
  * @created Friday, 08 July 2022
  */
-@LoadBalancerClient(value = "address-service")
+/*@LoadBalancerClient(value = "address-service")
 public class AddressServiceLoadBalancerConfig {
 
     @LoadBalanced
@@ -17,4 +17,4 @@ public class AddressServiceLoadBalancerConfig {
     public Feign.Builder feignBuilder () {
         return Feign.builder();
     }
-}
+}*/

@@ -10,6 +10,7 @@ For further reference, please consider the following sections:
 * Implementation of [Spring cloud API gateway](https://spring.io/projects/spring-cloud-gateway)
 * Fault tolerance and circuit break with [Resilience4j](https://resilience4j.readme.io/docs) and Spring AOP.
 * Distributed Tracing with [Sleuth and Zipkin](https://spring.io/blog/2016/02/15/distributed-tracing-with-spring-cloud-sleuth-and-spring-cloud-zipkin) 
+* Spring cloud [config server](https://cloud.spring.io/spring-cloud-config/reference/html/) 
 
 
 ## Getting Started 

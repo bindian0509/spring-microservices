@@ -7,16 +7,17 @@ For further reference, please consider the following sections:
 * Implementation of [Eureka](https://cloud.spring.io/spring-cloud-netflix/multi/multi_spring-cloud-eureka-server.html) server and client 
 * Implementation of client based [load balancing](https://spring.io/guides/gs/spring-cloud-loadbalancer/) 
   (Added in Student Service for Address Service)
-* Implementation of API gateway  
+* Implementation of [Spring cloud API gateway](https://spring.io/projects/spring-cloud-gateway)
+* Fault tolerance and circuit break with [Resilience4j](https://resilience4j.readme.io/docs) and Spring AOP.
 
 
 ## Getting Started 
 
 
-1. Setup and [run mysql on local machine](https://www.prisma.io/dataguide/mysql/setting-up-a-local-mysql-database), then dump the data given in `database_file` directory like 
+1. Setup and [run mysql on local machine](https://www.prisma.io/dataguide/mysql/setting-up-a-local-mysql-database), then dump the data given in `helper-files` directory like 
 
 ```
-mysql -u root < university.db.sql 
+mysql -u root < helper-files/university.db.sql 
 ```
 2. Change database connection credentials everywhere in `application.properties`
 

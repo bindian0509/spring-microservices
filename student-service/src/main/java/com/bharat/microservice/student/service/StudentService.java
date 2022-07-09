@@ -8,6 +8,7 @@ import com.bharat.microservice.student.model.dto.CreateStudentRequest;
 import com.bharat.microservice.student.model.dto.StudentResponse;
 import com.bharat.microservice.student.model.entity.Student;
 import com.bharat.microservice.student.repository.StudentRepository;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -19,7 +20,7 @@ public class StudentService {
     @Autowired
     private StudentRepository studentRepository;
     @Autowired
-    private AddressFeignClient addressFeignClient;
+    private CircuitBreakedEnabledService commonService;
 
     public StudentResponse createStudent(CreateStudentRequest createStudentRequest) {
 
@@ -27,15 +28,12 @@ public class StudentService {
         student.setFirstName(createStudentRequest.getFirstName());
         student.setLastName(createStudentRequest.getLastName());
         student.setEmail(createStudentRequest.getEmail());
-
         student.setAddressId(createStudentRequest.getAddressId());
         student = studentRepository.save(student);
 
         StudentResponse studentResponse = new StudentResponse(student);
-
         //studentResponse.setAddressResponse(getAddressById(student.getAddressId()));
-
-        studentResponse.setAddressResponse(addressFeignClient.getById(student.getAddressId()));
+        studentResponse.setAddressResponse(commonService.getAddressById(student.getAddressId()));
 
         return studentResponse;
     }
@@ -43,19 +41,11 @@ public class StudentService {
     public StudentResponse getById (long id) {
         Student student = studentRepository.findById(id).get();
         StudentResponse studentResponse = new StudentResponse(student);
-
         //studentResponse.setAddressResponse(getAddressById(student.getAddressId()));
-
-        studentResponse.setAddressResponse(addressFeignClient.getById(student.getAddressId()));
+        studentResponse.setAddressResponse(commonService.getAddressById(student.getAddressId()));
 
         return studentResponse;
     }
 
-    public AddressResponse getAddressById (long addressId) {
-        Mono<AddressResponse> addressResponse =
-                WebClient.create().get().uri("/" + addressId)
-                        .retrieve().bodyToMono(AddressResponse.class);
 
-        return addressResponse.block();
-    }
 }

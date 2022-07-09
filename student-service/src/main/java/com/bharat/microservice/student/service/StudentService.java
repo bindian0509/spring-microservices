@@ -3,19 +3,19 @@ package com.bharat.microservice.student.service;
  * @author bharat.verma
  * @created Thursday, 07 July 2022
  */
-import com.bharat.microservice.student.model.dto.AddressResponse;
+
 import com.bharat.microservice.student.model.dto.CreateStudentRequest;
 import com.bharat.microservice.student.model.dto.StudentResponse;
 import com.bharat.microservice.student.model.entity.Student;
 import com.bharat.microservice.student.repository.StudentRepository;
-import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
 
 @Service
 public class StudentService {
+    private Logger logger = LoggerFactory.getLogger(StudentService.class);
 
     @Autowired
     private StudentRepository studentRepository;
@@ -39,6 +39,7 @@ public class StudentService {
     }
 
     public StudentResponse getById (long id) {
+        logger.info("# Fetching Student by get Id for Id : "+id);
         Student student = studentRepository.findById(id).get();
         StudentResponse studentResponse = new StudentResponse(student);
         //studentResponse.setAddressResponse(getAddressById(student.getAddressId()));

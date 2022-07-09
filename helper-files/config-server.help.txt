@@ -1,0 +1,4 @@
+config server dir must be initialized in a new separate folder with
+git init
+git add -A
+git commit -a -m "Adding Local git config server"

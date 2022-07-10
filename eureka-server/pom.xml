@@ -48,7 +48,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <image>
-                        <name>bharat/${project.artifactId}</name>
+                        <name>bindian0509/${project.artifactId}</name>
                     </image>
                 </configuration>
             </plugin>

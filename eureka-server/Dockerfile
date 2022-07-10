@@ -1,6 +1,6 @@
 FROM maven:latest
 
-MAINTAINER bindian0509@gmail.com
+MAINTAINER Bharat <bindian0509@gmail.com>
 
 WORKDIR /app
 

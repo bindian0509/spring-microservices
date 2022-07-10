@@ -1,0 +1,36 @@
+version: "3.8"
+services:
+  eureka-server:
+    image: bharat/eureka-server:latest
+    ports:
+      - "8761:8761"
+    networks:
+      - spring-microservices
+
+  api-gateway:
+    image: bharat/api-gateway:latest
+    ports:
+      - "9090:9090"
+    networks:
+      - spring-microservices
+
+  config-server:
+    image: bharat/config-server:latest
+    ports:
+      - "8888:8888"
+    networks:
+      - spring-microservices
+  address-service:
+    image: bharat/address-service:latest
+    ports:
+      - "8081:8081"
+    networks:
+      - spring-microservices
+  student-service:
+    image: bharat/student-service:latest
+    ports:
+      - "8080:8080"
+    networks:
+      - spring-microservices
+networks:
+  spring-microservices:

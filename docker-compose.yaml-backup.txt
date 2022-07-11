@@ -1,0 +1,81 @@
+version: "3.8"
+services:
+  mysql:
+    image: mysql:5.7
+    command: mysqld --user=root
+    volumes:
+      - ./helper-files:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_DATABASE: "university"
+      MYSQL_USER: "root"
+      MYSQL_ROOT_PASSWORD: MYSQL_ALLOW_EMPTY_PASSWORD=true
+    networks:
+      - spring-microservices
+  eureka-server:
+    image: bindian0509/eureka-server:latest
+    ports:
+      - "8761:8761"
+    networks:
+      - spring-microservices
+    depends_on:
+      - mysql
+  api-gateway:
+    image: bindian0509/api-gateway:latest
+    ports:
+      - "9090:9090"
+    networks:
+      - spring-microservices
+    depends_on:
+      - eureka-server
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+  config-server:
+    image: bindian0509/config-server:latest
+    ports:
+      - "8888:8888"
+    networks:
+      - spring-microservices
+    depends_on:
+      - api-gateway
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+  address-service:
+    image: bindian0509/address-service:latest
+    ports:
+      - "8081:8081"
+    networks:
+      - spring-microservices
+    depends_on:
+      - config-server
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+  student-service:
+    image: bindian0509/student-service:latest
+    ports:
+      - "8080:8080"
+    networks:
+      - spring-microservices
+    depends_on:
+      - address-service
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+networks:
+  spring-microservices:

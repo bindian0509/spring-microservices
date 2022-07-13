@@ -20,7 +20,7 @@ public class AddressController {
     @Autowired
     private AddressService addressService;
 
-    @Value("${address.test}")
+    @Value("${address.test:default}")
     private String serverType;
 
     @PostMapping("/")

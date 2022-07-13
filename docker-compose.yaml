@@ -66,7 +66,9 @@ services:
         max_attempts: 3
         window: 120s
     environment:
+      CLOUD_CONFIG_FAIL-FAST : true
       EUREKA_CLIENT_SERVICE-URL_DEFAULTZONE : "http://eureka-server:8761/eureka"
+
   address-service:
     image: bindian0509/address-service:latest
     container_name: address-service
@@ -83,10 +85,8 @@ services:
         max_attempts: 3
         window: 120s
     environment:
-      EUREKA_CLIENT_SERVICE-URL_DEFAULTZONE : "http://eureka-server:8761/eureka"
-      SPRING_ZIPKIN_BASE-URL : "http://zipkin:9411"
-      SPRING_DATASOURCE_URL: "jdbc:mysql://mysql:3306/university"
-      SPRING_DATASOURCE_PASSWORD: "root"
+      SPRING_CLOUD_CONFIG_PROFILE: "docker"
+      SPRING_CONFIG_IMPORT : "configserver:http://config-server:8888"
   student-service:
     image: bindian0509/student-service:latest
     container_name: student-service
@@ -109,3 +109,4 @@ services:
       SPRING_DATASOURCE_PASSWORD : "root"
 networks:
   spring-microservices:
+    name: spring-microservices

@@ -21,6 +21,12 @@ services:
       - "8761:8761"
     networks:
       - spring-microservices
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 15s
+        max_attempts: 3
+        window: 120s
     depends_on:
       - mysql
   zipkin:
@@ -69,9 +75,9 @@ services:
       CLOUD_CONFIG_FAIL-FAST : true
       EUREKA_CLIENT_SERVICE-URL_DEFAULTZONE : "http://eureka-server:8761/eureka"
 
-  address-service:
+  address-service-1:
     image: bindian0509/address-service:latest
-    container_name: address-service
+    container_name: address-service-1
     ports:
       - "8081:8081"
     networks:
@@ -87,6 +93,24 @@ services:
     environment:
       SPRING_CLOUD_CONFIG_PROFILE: "docker"
       SPRING_CONFIG_IMPORT : "configserver:http://config-server:8888"
+  address-service-2:
+    image: bindian0509/address-service:latest
+    container_name: address-service-2
+    ports:
+      - "8082:8082"
+    networks:
+      - spring-microservices
+    depends_on:
+      - config-server
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+    environment:
+      SPRING_CLOUD_CONFIG_PROFILE: "docker"
+      SPRING_CONFIG_IMPORT: "configserver:http://config-server:8888"
   student-service:
     image: bindian0509/student-service:latest
     container_name: student-service
@@ -95,7 +119,7 @@ services:
     networks:
       - spring-microservices
     depends_on:
-      - address-service
+      - eureka-server
     deploy:
       restart_policy:
         condition: on-failure

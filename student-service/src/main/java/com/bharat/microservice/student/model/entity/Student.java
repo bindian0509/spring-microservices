@@ -5,10 +5,13 @@ package com.bharat.microservice.student.model.entity;
  */
 
 
+import lombok.Data;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "student")
+@Data
 public class Student {
 
     @Id
@@ -28,44 +31,43 @@ public class Student {
     @Column(name = "address_id")
     private long addressId;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
+    public Student setId(Long id) {
         this.id = id;
+        return this;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
+    public Student setFirstName(String firstName) {
         this.firstName = firstName;
+        return this;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
+    public Student setLastName(String lastName) {
         this.lastName = lastName;
+        return this;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
+    public Student setEmail(String email) {
         this.email = email;
+        return this;
     }
 
-    public long getAddressId() {
-        return addressId;
+    public Student setAddressId(long addressId) {
+        this.addressId = addressId;
+        return this;
     }
 
-    public void setAddressId(long addressId) {
+    public Student() {
+    }
+
+    public Student(Long id, String firstName, String lastName, String email, long addressId) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
         this.addressId = addressId;
     }
 
+    public Student build () {
+        return new Student(id, firstName, lastName, email, addressId);
+    }
 }

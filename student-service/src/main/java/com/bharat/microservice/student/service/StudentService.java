@@ -24,17 +24,17 @@ public class StudentService {
 
     public StudentResponse createStudent(CreateStudentRequest createStudentRequest) {
 
-        Student student = new Student();
-        student.setFirstName(createStudentRequest.getFirstName());
-        student.setLastName(createStudentRequest.getLastName());
-        student.setEmail(createStudentRequest.getEmail());
-        student.setAddressId(createStudentRequest.getAddressId());
+        Student student = new Student()
+                .setFirstName(createStudentRequest.getFirstName())
+                .setLastName(createStudentRequest.getLastName())
+                .setEmail(createStudentRequest.getEmail())
+                .setAddressId(createStudentRequest.getAddressId())
+                .build();
         student = studentRepository.save(student);
 
         StudentResponse studentResponse = new StudentResponse(student);
         //studentResponse.setAddressResponse(getAddressById(student.getAddressId()));
         studentResponse.setAddressResponse(commonService.getAddressById(student.getAddressId()));
-
         return studentResponse;
     }
 

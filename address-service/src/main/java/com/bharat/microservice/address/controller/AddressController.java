@@ -7,6 +7,7 @@ package com.bharat.microservice.address.controller;
 import com.bharat.microservice.address.model.dto.AddressResponse;
 import com.bharat.microservice.address.model.dto.CreateAddressRequest;
 import com.bharat.microservice.address.service.AddressService;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -37,4 +38,15 @@ public class AddressController {
     public String test() {
         return serverType;
     }
+
+    @GetMapping("/hello")
+    @RateLimiter(name = "hello", fallbackMethod = "helloFeedback")
+    public String hello() {
+        return "Hello, Welcome to Spring Boot Microservice...!!!";
+    }
+
+    private String helloFeedback(Throwable t) {
+        return "Hey you have exceeded my welcoming request, back off :| ";
+    }
+
 }

@@ -38,15 +38,18 @@ services:
       - spring-microservices
     depends_on:
       - eureka-server
+
   api-gateway:
     image: bindian0509/api-gateway:latest
     container_name: api-gateway
     ports:
-      - "9090:9090"
+      - "8072:8072"
     networks:
       - spring-microservices
     depends_on:
       - zipkin
+      - eureka-server
+      - mysql
     deploy:
       restart_policy:
         condition: on-failure
@@ -56,6 +59,7 @@ services:
     environment:
       EUREKA_CLIENT_SERVICE-URL_DEFAULTZONE : "http://eureka-server:8761/eureka"
       SPRING_ZIPKIN_BASE-URL : "http://zipkin:9411"
+
   config-server:
     image: bindian0509/config-server:latest
     container_name: config-server
@@ -65,6 +69,9 @@ services:
       - spring-microservices
     depends_on:
       - api-gateway
+      - eureka-server
+      - zipkin
+      - mysql
     deploy:
       restart_policy:
         condition: on-failure
@@ -72,7 +79,6 @@ services:
         max_attempts: 3
         window: 120s
     environment:
-      CLOUD_CONFIG_FAIL-FAST : true
       EUREKA_CLIENT_SERVICE-URL_DEFAULTZONE : "http://eureka-server:8761/eureka"
 
   address-service-1:
@@ -84,6 +90,10 @@ services:
       - spring-microservices
     depends_on:
       - config-server
+      - eureka-server
+      - mysql
+      - zipkin
+      - api-gateway
     deploy:
       restart_policy:
         condition: on-failure
@@ -93,6 +103,7 @@ services:
     environment:
       SPRING_CLOUD_CONFIG_PROFILE: "docker"
       SPRING_CONFIG_IMPORT : "configserver:http://config-server:8888"
+
   address-service-2:
     image: bindian0509/address-service:latest
     container_name: address-service-2
@@ -102,6 +113,10 @@ services:
       - spring-microservices
     depends_on:
       - config-server
+      - eureka-server
+      - mysql
+      - zipkin
+      - api-gateway
     deploy:
       restart_policy:
         condition: on-failure
@@ -111,6 +126,7 @@ services:
     environment:
       SPRING_CLOUD_CONFIG_PROFILE: "docker"
       SPRING_CONFIG_IMPORT: "configserver:http://config-server:8888"
+
   student-service:
     image: bindian0509/student-service:latest
     container_name: student-service
@@ -119,7 +135,13 @@ services:
     networks:
       - spring-microservices
     depends_on:
+      - config-server
+      - address-service-2
+      - address-service-1
       - eureka-server
+      - mysql
+      - zipkin
+      - api-gateway
     deploy:
       restart_policy:
         condition: on-failure
@@ -131,6 +153,32 @@ services:
       SPRING_ZIPKIN_BASE-URL : "http://zipkin:9411"
       SPRING_DATASOURCE_URL : "jdbc:mysql://mysql:3306/university"
       SPRING_DATASOURCE_PASSWORD : "root"
+
+  grafana:
+    image: "grafana/grafana:latest"
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=password
+    networks:
+      - spring-microservices
+    depends_on:
+      - prometheus
+
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - spring-microservices
+    depends_on:
+      - address-service-1
+      - address-service-2
+      - student-service
+
 networks:
   spring-microservices:
     name: spring-microservices

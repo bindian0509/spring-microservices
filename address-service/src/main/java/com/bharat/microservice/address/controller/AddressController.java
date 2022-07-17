@@ -8,6 +8,7 @@ import com.bharat.microservice.address.model.dto.AddressResponse;
 import com.bharat.microservice.address.model.dto.CreateAddressRequest;
 import com.bharat.microservice.address.service.AddressService;
 import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
+import io.micrometer.core.annotation.Timed;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -30,6 +31,7 @@ public class AddressController {
     }
 
     @GetMapping("/{id}")
+    @Timed(value = "getById.time", description = "Time taken to return address by id")
     public AddressResponse getById(@PathVariable long id) {
         return addressService.getById(id);
     }

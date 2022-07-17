@@ -1,0 +1,19 @@
+
+
+-- Commnad to enter container as root
+
+docker container exec -u 0 -it address-service-2 bash
+-- or
+docker container exec -u 0 -it address-service-1 bash
+
+-- Identify how many cores and threads your CPU has. You can get detailed CPU info with the following command:
+
+cat /proc/cpuinfo
+
+-- resulted 12 for my docker process
+
+-- execute the following command as root X num of processors
+
+yes > /dev/null &
+
+-- To stop it, execute the command killall yes as root.

@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: spring-services-configmap
+data:
+  SPRING_ZIPKIN_BASEURL: http://zipkin-service:9411/
+  SPRING_PROFILES_ACTIVE: prod
+  SPRING_CONFIG_IMPORT: configserver:http://config-server-service:8071/
+  EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server-service:8761/eureka/

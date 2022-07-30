@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: loans-deployment
+  name: student-service-deployment
   labels:
-    app: loans
+    app: student-service
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: loans
+      app: student-service
   template:
     metadata:
       labels:
-        app: loans
+        app: student-service
     spec:
       containers:
-      - name: loans
-        image: bindian0509/loans:latest
+      - name: student-service
+        image: bindian0509/student-service:latest
         ports:
         - containerPort: 8080
         env:
@@ -44,10 +44,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: loans-service
+  name: student-service
 spec:
   selector:
-    app: loans
+    app: student-service
   type: LoadBalancer
   ports:
     - protocol: TCP

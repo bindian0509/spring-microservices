@@ -23,18 +23,18 @@ spec:
         - name: SPRING_ZIPKIN_BASEURL
           valueFrom: 
             configMapKeyRef:
-              name: eazybank-configmap
+              name: spring-services-configmap
               key: SPRING_ZIPKIN_BASEURL
         - name: SPRING_PROFILES_ACTIVE
           valueFrom: 
             configMapKeyRef:
-              name: eazybank-configmap
+              name: spring-services-configmap
               key: SPRING_PROFILES_ACTIVE
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: config-server-service
+  name: config-server
 spec:
   selector:
     app: config-server

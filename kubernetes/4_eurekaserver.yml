@@ -23,24 +23,24 @@ spec:
         - name: SPRING_PROFILES_ACTIVE
           valueFrom: 
             configMapKeyRef:
-              name: eazybank-configmap
+              name: spring-services-configmap
               key: SPRING_PROFILES_ACTIVE
         - name: SPRING_ZIPKIN_BASEURL
           valueFrom: 
             configMapKeyRef:
-              name: eazybank-configmap
+              name: spring-services-configmap
               key: SPRING_ZIPKIN_BASEURL
         - name: SPRING_CONFIG_IMPORT
           valueFrom: 
             configMapKeyRef:
-              name: eazybank-configmap
+              name: spring-services-configmap
               key: SPRING_CONFIG_IMPORT
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: eureka-server-service
+  name: eureka-server
 spec:
   selector:
     app: eureka-server

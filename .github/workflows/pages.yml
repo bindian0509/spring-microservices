@@ -30,6 +30,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Rename readme
         run: | 
           - mv README.md index.md
       - name: Setup Pages

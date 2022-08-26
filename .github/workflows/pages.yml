@@ -31,8 +31,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Rename readme
-        run: | 
-          - mv README.md index.md
+        run: mv README.md index.md
       - name: Setup Pages
         uses: actions/configure-pages@v2
       - name: Upload artifact
